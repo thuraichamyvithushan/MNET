@@ -22,7 +22,7 @@ const ITSupportPopup = ({ onClose }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://mnet-5wyk.vercel.app//send-email', {
+            const response = await fetch('https://mnet-3c33.vercel.app/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
