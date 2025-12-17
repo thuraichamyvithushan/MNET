@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+
+.under {
+  position: relative;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  transition: color 0.3s ease;
+  text-align: center;
+  margin-bottom: -5px;
+}
+
+
+
+
+
+/* Tiles */
+.tile-image {
+  height: 10rem;
+  background-color: #cbd5e0;
+  border-radius: 0.5rem;
+}
+
+.tile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.tile-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.tile-link {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  background-color: #cbd5e0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #2d3748;
+}
+
+.card-body {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  border-radius: 8px;
+  border: none;
+}
+
+.card {
+  border: none;
+}
+
+.anime-2 {
+  /* Premium Lift Effect */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.anime-2:hover {
+  transform: translateY(-10px) scale(1.02);
+  z-index: 10;
+}
+
+/* Add accent border to card on hover */
+.anime-2:hover .card {
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px solid #d97706;
+  /* Solid Gold */
+}
+
+/* Remove default shadow from card-body to let the card handle the main shadow */
+.anime-2:hover .card-body {
+  box-shadow: none;
+}
+
+img {
+  object-fit: contain;
+}
+
+h4 {
+  font-size: 15px;
+}
+
+.home_card {
+  width: 240px;
+}
+
+.home_row {
+  justify-self: center;
+}
+
+.mt-5 {
+  margin-top: 0px !important;
+}
+
+
+.market,
+.sales,
+.oso {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(10, 55, 45, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s ease;
+  backdrop-filter: blur(6px);
+  text-align: center;
+   margin-bottom: 4%;
+   margin-top: 4%;
+}
+
+.oso {
+  margin-bottom: 20px;
+}
+
+.market:hover,
+.sales:hover,
+.oso:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+
+}
+
+.market h2,
+.sales h2,
+.oso h2 {
+  color: #672423;
+  text-align: center;
+}
+
+.center-card {
+  display: flex;
+  justify-content: center;
+}
+
+.col-xl-4 {
+  width: 27%;
+}
+
+.main-cent {
+  display: flex;
+  justify-content: center;
+}
+
+.container.main-cent {
+  display: flex;
+  flex-direction: column;
+}
+
+.cent {
+  width: 100%;
+}
+
+/* .col-xl-3 {
+  width: 25%;
+} */
+
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col-seven {
+  flex: 0 0 calc(100% / 7);
+  max-width: calc(100% / 7);
+}
+
+
+
+/* Flex container */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+  /* optional for spacing */
+}
+
+/* Default: mobile first — 1 column */
+.col-four {
+  flex: 0 0 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+/* Small tablet / large mobile (≥576px): 2 columns */
+@media (min-width: 576px) {
+  .col-four {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* Tablet (≥768px): 3 columns */
+@media (min-width: 768px) {
+  .col-four {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  }
+}
+
+/* Desktop (≥992px): 4 columns */
+@media (min-width: 992px) {
+  .col-four {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+/* Mobile screen: full width */
+@media (max-width: 767px) {
+  .col-four {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.card.home_card {
+  width: 100%;
+  max-width: 200px;
+}
