@@ -19,7 +19,7 @@ const Hero = () => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
 
-    // Fetch Daily Quote
+
     const fetchQuote = async () => {
       try {
         const doc = await firestore.collection("dailyQuote").doc("current").get();
@@ -29,7 +29,7 @@ const Hero = () => {
       }
     };
 
-    // Fetch Latest News
+
     const fetchNews = async () => {
       try {
         const snapshot = await firestore.collection("news")
@@ -46,18 +46,17 @@ const Hero = () => {
       }
     };
 
-    // Fetch Weather
- const fetchWeather = async () => {
-  try {
-    const response = await fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=-32.7833&longitude=151.6417&current_weather=true"
-    );
-    const data = await response.json();
-    setWeather(data.current_weather);
-  } catch (error) {
-    console.error("Error fetching weather:", error);
-  }
-};
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch(
+          "https://api.open-meteo.com/v1/forecast?latitude=-32.7833&longitude=151.6417&current_weather=true"
+        );
+        const data = await response.json();
+        setWeather(data.current_weather);
+      } catch (error) {
+        console.error("Error fetching weather:", error);
+      }
+    };
     // 
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
 
@@ -95,13 +94,13 @@ const Hero = () => {
   const containerStyle = {
     position: "relative",
     width: "100%",
-    minHeight: "85vh", // Use minHeight instead of fixed height
+    minHeight: "85vh", 
     overflow: "hidden",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     marginTop: "2%",
-    paddingBottom: "40px" // Ensure space at bottom
+    paddingBottom: "40px" 
   }
 
 
@@ -160,9 +159,9 @@ const Hero = () => {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "100%", // Take full height
-    paddingTop: "100px", // Push title down a bit
-    paddingBottom: "40px" // Space for cards
+    height: "100%", 
+    paddingTop: "100px",
+    paddingBottom: "40px" 
   };
 
   const textSectionStyle = {
@@ -190,7 +189,7 @@ const Hero = () => {
     lineHeight: 1.1,
   };
 
-  // Dark and amber/orange gradient for text
+ 
   const darkGoldGradient = `
     linear-gradient(
       45deg,
@@ -227,21 +226,21 @@ const Hero = () => {
     boxShadow: "0 0 15px rgba(245, 158, 11, 0.6)",
   };
 
-  // --- Cards Styling ---
+
   const cardsContainerStyle = {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
     gap: "20px",
     width: "100%",
-    marginTop: "auto", // Push to bottom
+    marginTop: "auto", 
     animation: "fadeInUp 1s ease-out 0.8s both",
   };
 
   const getCardWidth = () => {
-    if (windowWidth < 600) return "100%"; // Mobile: 1 per row
-    if (windowWidth < 1024) return "calc(50% - 20px)"; // Tablet: 2 per row
-    return "calc(50% - 20px)"; // Desktop: 3 per row for first 3, then 2 per row
+    if (windowWidth < 600) return "100%";
+    if (windowWidth < 1024) return "calc(50% - 20px)"; 
+    return "calc(50% - 20px)"; 
   };
 
   const cardStyle = {
@@ -249,14 +248,14 @@ const Hero = () => {
     backdropFilter: "blur(10px)",
     border: "1px solid rgba(214, 136, 0, 0.68)",
     borderRadius: "15px",
-    padding: "25px", // Increased padding
+    padding: "25px", 
     color: "#fff",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     textAlign: "center",
     transition: "transform 0.3s ease",
-    minHeight: "180px", // Increased from 160px
+    minHeight: "180px", 
     justifyContent: "center",
     width: getCardWidth(),
     boxSizing: "border-box"
@@ -277,11 +276,11 @@ const Hero = () => {
   };
 
   const cardTitleStyle2 = {
-  fontSize: "12px",
-  color: "#ffffffff",
-  fontWeight: "400", // removes bold
-  letterSpacing: "1px",
-};
+    fontSize: "12px",
+    color: "#ffffffff",
+    fontWeight: "400", 
+    letterSpacing: "1px",
+  };
 
 
   const cardContentStyle = {
@@ -345,15 +344,12 @@ const Hero = () => {
       </style>
 
       <div style={containerStyle}>
-        {/* Background Layer */}
         <div style={backgroundStyle}>
           <div style={overlayStyle}></div>
         </div>
 
-        {/* Content Layer */}
         <div style={contentContainerStyle}>
 
-          {/* Main Headings (Old Style) */}
           <div style={textSectionStyle}>
             <p style={greetingStyle}>Welcome To </p>
             <div style={titleStyle}>
@@ -371,8 +367,13 @@ const Hero = () => {
               <div style={cardIconStyle}><FontAwesomeIcon icon={faQuoteLeft} /></div>
               <div style={cardTitleStyle}>Daily Inspiration</div>
               <div style={{ ...cardContentStyle, fontStyle: "italic", fontSize: "14px" }}>
-                "{dailyQuote ? dailyQuote.text.substring(0, 60) + (dailyQuote.text.length > 1000 ? "..." : "") : "Start your day with positivity."}"
+                "{dailyQuote ? dailyQuote.text.substring(0, 1000) + (dailyQuote.text.length > 1000 ? "..." : "") : "Start your day with positivity."}"
               </div>
+              {dailyQuote && dailyQuote.author && (
+                <div style={{ fontSize: "12px", color: "#ccc", marginTop: "8px", fontStyle: "normal" }}>
+                  - {dailyQuote.author}
+                </div>
+              )}
             </div>
 
             {/* Card 2: Latest News */}
@@ -384,25 +385,25 @@ const Hero = () => {
               <div style={cardIconStyle}><FontAwesomeIcon icon={faNewspaper} /></div>
               <div style={cardTitleStyle}>Latest Update</div>
               <div style={{ ...cardContentStyle }}>
-                   {loadingNews ? (
-                      ""
-                      ) : latestNews ? (
-                   <>
-                       <h4 style={{ fontSize: "16px", marginBottom: "6px" }}>
+                {loadingNews ? (
+                  ""
+                ) : latestNews ? (
+                  <>
+                    <h4 style={{ fontSize: "16px", marginBottom: "6px" }}>
                       {latestNews.title}
-                      </h4>
-                     <div style={cardTitleStyle2}>
+                    </h4>
+                    <div style={cardTitleStyle2}>
                       {latestNews.content}
-                      </div>
-                       </>
-                  ) : (
-                 "No recent updates."
-                   )}
-               </div>
+                    </div>
+                  </>
+                ) : (
+                  "No recent updates."
+                )}
+              </div>
 
             </div>
 
-             {/* Card 3: Calendar */}
+            {/* Card 3: Calendar */}
             {/* <div
               style={{ ...cardStyle, cursor: "pointer", width: windowWidth >= 1024 ? "calc(30% - 20px)" : getCardWidth() }}
               className="hero-card"
@@ -440,8 +441,8 @@ const Hero = () => {
             </div>
 
             {/* Card 5: Weather Australia */}
-            <div style={cardStyle} className="hero-card">     
-            <div style={cardIconStyle}><FontAwesomeIcon icon={faCloudSun} /></div>
+            <div style={cardStyle} className="hero-card">
+              <div style={cardIconStyle}><FontAwesomeIcon icon={faCloudSun} /></div>
               <div style={cardTitleStyle}>Weather (Thornton NSW)</div>
               <div style={{ ...cardContentStyle, fontSize: "24px", color: "#f59e0b" }}>
                 {weather ? `${weather.temperature}°C` : "--°C"}
@@ -451,7 +452,7 @@ const Hero = () => {
               </div>
             </div>
 
-           
+
           </div>
 
         </div>
