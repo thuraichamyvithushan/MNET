@@ -20,7 +20,6 @@ const SafetyIssuePopup = ({ onClose }) => {
         consent: false,
     });
 
-    // Holds the selected FieldList files
     const [files, setFiles] = useState([]);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,21 +65,19 @@ const SafetyIssuePopup = ({ onClose }) => {
 
         setIsSubmitting(true);
         const submissionData = new FormData();
-        // Append all text fields
         Object.keys(formData).forEach(key => {
             submissionData.append(key, formData[key]);
         });
-        // Append files
+      
         files.forEach(file => {
             submissionData.append('attachments', file);
         });
 
-        const API_URL = 'http://localhost:3001/send-safety-report'; // Adjust port if needed
-
+        const API_URL = 'https://mnet-3c33.vercel.app/send-safety-report'; 
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                body: submissionData, // No 'Content-Type' header, browser sets it with boundary
+                body: submissionData,
             });
 
             if (response.ok) {
@@ -125,7 +122,7 @@ const SafetyIssuePopup = ({ onClose }) => {
 
                 <form className="safety-popup-body" onSubmit={handleSubmit}>
 
-                    {/* 1. Reporter Details */}
+                   
                     <div className="form-section">
                         <span className="section-title">Reporter Details</span>
                         <div className="form-grid">
@@ -148,7 +145,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                    {/* 2. Issue Information */}
+                 
                     <div className="form-section">
                         <span className="section-title">Issue Information</span>
                         <div className="form-grid">
@@ -179,7 +176,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                    {/* 3. Issue Description */}
+                
                     <div className="form-section">
                         <span className="section-title">Description</span>
                         <div className="form-group full-width">
@@ -192,7 +189,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                    {/* 4. Risk Level */}
+               
                     <div className="form-section">
                         <span className="section-title">Risk Assessment</span>
                         <div className="form-grid">
@@ -220,7 +217,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                    {/* 5. Attachments */}
+               
                     <div className="form-section">
                         <span className="section-title">Attachments (Photos/Videos)</span>
                         <div className="form-group full-width">
@@ -237,7 +234,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                    {/* 6. Consent */}
+                    
                     <div className="form-section">
                         <span className="section-title">Action & Consent</span>
                         <div className="form-grid">
@@ -268,7 +265,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                    {/* Footer Actions embedded in form so submit works naturally */}
+                 
                     <div className="safety-popup-footer">
                         <button type="button" className="btn-reset" onClick={resetForm}>Reset</button>
                         <button type="submit" className="btn-submit" disabled={isSubmitting}>

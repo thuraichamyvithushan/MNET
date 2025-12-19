@@ -371,7 +371,7 @@ const Hero = () => {
               <div style={cardIconStyle}><FontAwesomeIcon icon={faQuoteLeft} /></div>
               <div style={cardTitleStyle}>Daily Inspiration</div>
               <div style={{ ...cardContentStyle, fontStyle: "italic", fontSize: "14px" }}>
-                "{dailyQuote ? dailyQuote.text.substring(0, 60) + (dailyQuote.text.length > 60 ? "..." : "") : "Start your day with positivity."}"
+                "{dailyQuote ? dailyQuote.text.substring(0, 60) + (dailyQuote.text.length > 1000 ? "..." : "") : "Start your day with positivity."}"
               </div>
             </div>
 
