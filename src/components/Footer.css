@@ -79,13 +79,14 @@ footer .content a {
 }
 
 footer .content .box {
-  width: 33%;
+  width: 49%;
   transition: all 0.4s ease;
   padding: 10px;
   border-radius: 12px;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  
 }
 
 
@@ -285,12 +286,12 @@ footer .bottom {
 footer .bottom::before {
   content: '';
   position: absolute;
-  top: -10px;
+  top: -20px;
   left: 40px;
   right: 40px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #f59e0b, #d97706, #b45309, transparent);
-  animation: shimmer 3s linear infinite;
+  /* animation: shimmer 3s linear infinite; */
 }
 
 footer .bottom a {
@@ -353,11 +354,11 @@ footer::after {
 
   footer .content .box {
     width: 100%;
-    margin-top: 30px;
+    /* margin-top: 30px; */
   }
 
   footer .content .middle {
-    padding-left: 0;
+    padding-left: 10px;
   }
 
   footer .content {

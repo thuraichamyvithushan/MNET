@@ -5,7 +5,10 @@ const LeavePopup = ({ onClose }) => {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
-        leaveDate: '',
+        startDate: '',
+        endDate: '',
+        startTime: '',
+        endTime: '',
         reason: ''
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -97,16 +100,54 @@ const LeavePopup = ({ onClose }) => {
                                 />
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="leaveDate">Leave Date</label>
-                                <input
-                                    type="date"
-                                    id="leaveDate"
-                                    name="leaveDate"
-                                    value={formData.leaveDate}
-                                    onChange={handleChange}
-                                    required
-                                />
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                <div className="form-group">
+                                    <label htmlFor="startDate">Start Date</label>
+                                    <input
+                                        type="date"
+                                        id="startDate"
+                                        name="startDate"
+                                        value={formData.startDate}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="startTime">Start Time</label>
+                                    <input
+                                        type="time"
+                                        id="startTime"
+                                        name="startTime"
+                                        value={formData.startTime}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                <div className="form-group">
+                                    <label htmlFor="endDate">End Date</label>
+                                    <input
+                                        type="date"
+                                        id="endDate"
+                                        name="endDate"
+                                        value={formData.endDate}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="endTime">End Time</label>
+                                    <input
+                                        type="time"
+                                        id="endTime"
+                                        name="endTime"
+                                        value={formData.endTime}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
                             </div>
 
                             <div className="form-group">

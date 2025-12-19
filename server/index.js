@@ -2,6 +2,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 require('dotenv').config();
+const { generateSafetyReportHtml } = require('./emailTemplates');
 
 const app = express();
 const PORT = 3001;
@@ -122,7 +123,7 @@ app.post('/send-reimbursement', upload.single('receipt'), async (req, res) => {
 });
 
 app.post('/send-leave', async (req, res) => {
-    const { fullName, email, leaveDate, reason } = req.body;
+    const { fullName, email, startDate, endDate, startTime, endTime, reason } = req.body;
     const adminEmail = process.env.EMAIL_ADMIN_MNET || 'thuraichamyvithushan19@gmail.com';
 
     const mailOptions = {
@@ -135,7 +136,9 @@ app.post('/send-leave', async (req, res) => {
       
       Name: ${fullName}
       Email: ${email}
-      Leave Date: ${leaveDate}
+      
+      From: ${startDate} at ${startTime}
+      To:   ${endDate} at ${endTime}
       
       Reason:
       ${reason}
@@ -145,7 +148,9 @@ app.post('/send-leave', async (req, res) => {
       <div style="font-family: sans-serif; line-height: 1.6;">
         <p><strong>Name:</strong> ${fullName}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Leave Date:</strong> ${leaveDate}</p>
+        <hr/>
+        <p><strong>From:</strong> ${startDate} @ ${startTime}</p>
+        <p><strong>To:</strong> ${endDate} @ ${endTime}</p>
         <hr/>
         <h3>Reason / Description</h3>
         <p>${reason.replace(/\n/g, '<br>')}</p>
@@ -160,6 +165,59 @@ app.post('/send-leave', async (req, res) => {
     } catch (error) {
         console.error('Error sending leave app:', error);
         res.status(500).json({ message: 'Failed to send leave application', error: error.toString() });
+    }
+});
+
+
+
+app.post('/send-safety-report', upload.array('attachments', 5), async (req, res) => {
+    const {
+        fullName, email, phone, department, issueType,
+        location, date, time, title, description,
+        severity, isInjured, reportedBefore, immediateAction
+    } = req.body;
+
+    const safetyEmail = process.env.EMAIL_ADMIN_MNET  || 'thuraichamyvithushan19@gmail.com';
+
+    const htmlContent = generateSafetyReportHtml(req.body);
+
+    const mailOptions = {
+        from: `"Mototrekkin Safety System" <${process.env.EMAIL_USER}>`,
+        replyTo: email,
+        to: safetyEmail,
+        subject: `SAFETY REPORT [${severity.toUpperCase()}]: ${title}`,
+        text: `
+      NEW SAFETY ISSUE REPORTED
+      
+      Reporter: ${fullName} (${email}, ${phone})
+      Dept: ${department || 'N/A'}
+      
+      Issue: ${title}
+      Type: ${issueType}
+      Severity: ${severity}
+      Location: ${location}
+      Date/Time: ${date} ${time || ''}
+      
+      Injuries? ${isInjured === 'true' ? 'YES' : 'No'}
+      Immediate Action? ${immediateAction === 'true' ? 'YES' : 'No'}
+      
+      Description:
+      ${description}
+    `,
+        html: htmlContent,
+        attachments: (req.files || []).map(file => ({
+            filename: file.originalname,
+            content: file.buffer
+        }))
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Safety report sent: ' + info.response);
+        res.status(200).json({ message: 'Safety report submitted successfully!' });
+    } catch (error) {
+        console.error('Error sending safety report:', error);
+        res.status(500).json({ message: 'Failed to send safety report', error: error.toString() });
     }
 });
 

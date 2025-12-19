@@ -42,39 +42,7 @@ const Footer = () => {
             <p >Sun: Closed</p>
           </div>
         </div>
-        <div className="right box">
-          <div className="lower">
-            <div className="topic">Contact us</div>
-            <div className="contact-info">
-              <div className="phone">
-                <a href="https://wa.me/+61450662270" target="_blank" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={faPhoneVolume} style={{ marginRight: "15px" }} /> +61450662270
-                </a>
-              </div>
-              <div className="email">
-                <a href="mailto:haris@pinkauto.com.au" target="_blank" rel="noreferrer">
-                  <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "15px" }} />haris@pinkauto.com.au
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="media-icons">
-            <a target="_blank" href="https://www.facebook.com/mototrekkin/" rel="noreferrer">
-              <FontAwesomeIcon icon={faFacebook} />
-            </a>
-            {/* fb link copied for avoid error warning */}
-            <a target="_blank" href="https://www.instagram.com/moto_trekkin_aus/" rel="noreferrer">
-              <FontAwesomeIcon icon={faInstagram} />
-            </a>
-            <a target="_blank" href="https://www.tiktok.com/@mototrekkin?is_from_webapp=1&sender_device=pc" rel="noreferrer">
-              <FontAwesomeIcon icon={faTiktok} />
-            </a>
-            <a target="_blank" href="https://www.youtube.com/channel/UCe__2WpNr0v_FgmTMq-hvdQ/about?view_as=subscriber" rel="noreferrer">
-              <FontAwesomeIcon icon={faYoutube} />
-            </a>
-
-          </div>
-        </div>
+        
       </div>
       <hr />
       <div className="bottom">

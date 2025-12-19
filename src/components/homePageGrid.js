@@ -6,17 +6,20 @@ import { useState } from "react";
 import ITSupportPopup from "./ITSupportPopup";
 import ReimbursementPopup from "./ReimbursementPopup";
 import LeavePopup from "./LeavePopup";
+import SafetyIssuePopup from "./SafetyIssuePopup";
 
 const HomePageGrid = function () {
     const [showITPopup, setShowITPopup] = useState(false);
     const [showReimbursementPopup, setShowReimbursementPopup] = useState(false);
     const [showLeavePopup, setShowLeavePopup] = useState(false);
+    const [showSafetyPopup, setShowSafetyPopup] = useState(false);
 
     return (
         <div>
             {showITPopup && <ITSupportPopup onClose={() => setShowITPopup(false)} />}
             {showReimbursementPopup && <ReimbursementPopup onClose={() => setShowReimbursementPopup(false)} />}
             {showLeavePopup && <LeavePopup onClose={() => setShowLeavePopup(false)} />}
+            {showSafetyPopup && <SafetyIssuePopup onClose={() => setShowSafetyPopup(false)} />}
 
             <div className="container main-cent">
                 <div className="cent">
@@ -109,7 +112,7 @@ const HomePageGrid = function () {
                             <div className="col-xl-2 col-md-4 col-sm-6 mt-3 anime-2 center-card">
                                 <div className="card home_card">
                                     <div className="card-body" style={{ textAlign: "center" }}>
-                                        <a href="#" target="_blank" rel="noreferrer">
+                                        <a href="https://moto-trekkin.monday.com/boards/18392252571" target="_blank" rel="noreferrer">
                                             <img height="100px" width="100px" src="./images/sd.png" alt="Staff Directory" />
                                         </a>
                                         <h4 className="card-title">Staff Directory</h4>
@@ -120,11 +123,13 @@ const HomePageGrid = function () {
                             <div className="col-xl-2 col-md-4 col-sm-6 mt-3 anime-2 center-card">
                                 <div className="card home_card">
                                     <div className="card-body" style={{ textAlign: "center" }}>
-                                        <Link to="#">
+                                        <div
+                                            onClick={() => setShowSafetyPopup(true)}
+                                            style={{ cursor: "pointer" }}
+                                        >
                                             <img height="100px" width="100px" src="./images/rsi.png" alt="Report safety issue" />
-                                        </Link>
+                                        </div>
                                         <h4 className="card-title"> Report safety issue </h4>
-
                                     </div>
                                 </div>
                             </div>

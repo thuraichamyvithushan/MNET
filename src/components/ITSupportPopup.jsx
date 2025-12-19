@@ -38,7 +38,6 @@ const ITSupportPopup = ({ onClose }) => {
             } else {
                 const errorData = await response.json();
                 console.error("Backend error:", errorData);
-                // Show the actual error from backend to help user debug
                 alert(`Error: ${errorData.error || 'Failed to send ticket'}`);
             }
         } catch (error) {

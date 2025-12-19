@@ -241,7 +241,7 @@ const Hero = () => {
   const getCardWidth = () => {
     if (windowWidth < 600) return "100%"; // Mobile: 1 per row
     if (windowWidth < 1024) return "calc(50% - 20px)"; // Tablet: 2 per row
-    return "calc(33.333% - 20px)"; // Desktop: 3 per row for first 3, then 2 per row
+    return "calc(50% - 20px)"; // Desktop: 3 per row for first 3, then 2 per row
   };
 
   const cardStyle = {
@@ -403,7 +403,7 @@ const Hero = () => {
             </div>
 
              {/* Card 3: Calendar */}
-            <div
+            {/* <div
               style={{ ...cardStyle, cursor: "pointer", width: windowWidth >= 1024 ? "calc(30% - 20px)" : getCardWidth() }}
               className="hero-card"
               onClick={() => navigate('/calendar')}
@@ -416,7 +416,7 @@ const Hero = () => {
               <div style={{ fontSize: "12px", color: "#ccc" }}>
                 Manage Schedule
               </div>
-            </div>
+            </div> */}
 
             {/* Card 4: Time */}
             <div style={cardStyle} className="hero-card">
@@ -440,8 +440,8 @@ const Hero = () => {
             </div>
 
             {/* Card 5: Weather Australia */}
-            <div style={{ ...cardStyle, width: windowWidth >= 1024 ? "calc(30% - 20px)" : getCardWidth() }} className="hero-card">
-              <div style={cardIconStyle}><FontAwesomeIcon icon={faCloudSun} /></div>
+            <div style={cardStyle} className="hero-card">     
+            <div style={cardIconStyle}><FontAwesomeIcon icon={faCloudSun} /></div>
               <div style={cardTitleStyle}>Weather (Thornton NSW)</div>
               <div style={{ ...cardContentStyle, fontSize: "24px", color: "#f59e0b" }}>
                 {weather ? `${weather.temperature}°C` : "--°C"}
