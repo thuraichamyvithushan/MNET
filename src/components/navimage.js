@@ -94,13 +94,13 @@ const Hero = () => {
   const containerStyle = {
     position: "relative",
     width: "100%",
-    minHeight: "85vh", 
+    minHeight: "85vh",
     overflow: "hidden",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     marginTop: "2%",
-    paddingBottom: "40px" 
+    paddingBottom: "40px"
   }
 
 
@@ -159,9 +159,9 @@ const Hero = () => {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "100%", 
+    height: "100%",
     paddingTop: "100px",
-    paddingBottom: "40px" 
+    paddingBottom: "40px"
   };
 
   const textSectionStyle = {
@@ -189,7 +189,7 @@ const Hero = () => {
     lineHeight: 1.1,
   };
 
- 
+
   const darkGoldGradient = `
     linear-gradient(
       45deg,
@@ -233,14 +233,14 @@ const Hero = () => {
     justifyContent: "center",
     gap: "20px",
     width: "100%",
-    marginTop: "auto", 
+    marginTop: "auto",
     animation: "fadeInUp 1s ease-out 0.8s both",
   };
 
   const getCardWidth = () => {
     if (windowWidth < 600) return "100%";
-    if (windowWidth < 1024) return "calc(50% - 20px)"; 
-    return "calc(50% - 20px)"; 
+    if (windowWidth < 1024) return "calc(50% - 20px)";
+    return "calc(50% - 20px)";
   };
 
   const cardStyle = {
@@ -248,14 +248,14 @@ const Hero = () => {
     backdropFilter: "blur(10px)",
     border: "1px solid rgba(214, 136, 0, 0.68)",
     borderRadius: "15px",
-    padding: "25px", 
+    padding: "25px",
     color: "#fff",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     textAlign: "center",
     transition: "transform 0.3s ease",
-    minHeight: "180px", 
+    minHeight: "180px",
     justifyContent: "center",
     width: getCardWidth(),
     boxSizing: "border-box"
@@ -276,10 +276,11 @@ const Hero = () => {
   };
 
   const cardTitleStyle2 = {
-    fontSize: "12px",
+    fontSize: "13px",
     color: "#ffffffff",
-    fontWeight: "400", 
+    fontWeight: "500",
     letterSpacing: "1px",
+    // fontStyle: "italic"
   };
 
 
@@ -365,7 +366,9 @@ const Hero = () => {
             {/* Card 1: Daily Quote */}
             <div style={cardStyle} className="hero-card">
               <div style={cardIconStyle}><FontAwesomeIcon icon={faQuoteLeft} /></div>
-              <div style={cardTitleStyle}>Daily Inspiration</div>
+              <div style={cardTitleStyle}>
+                {dailyQuote && dailyQuote.heading ? dailyQuote.heading : "Daily Inspiration"}
+              </div>
               <div style={{ ...cardContentStyle, fontStyle: "italic", fontSize: "14px" }}>
                 "{dailyQuote ? dailyQuote.text.substring(0, 1000) + (dailyQuote.text.length > 1000 ? "..." : "") : "Start your day with positivity."}"
               </div>
@@ -389,7 +392,7 @@ const Hero = () => {
                   ""
                 ) : latestNews ? (
                   <>
-                    <h4 style={{ fontSize: "16px", marginBottom: "6px" }}>
+                    <h4 style={{ fontSize: "16px", marginBottom: "6px", }}>
                       {latestNews.title}
                     </h4>
                     <div style={cardTitleStyle2}>

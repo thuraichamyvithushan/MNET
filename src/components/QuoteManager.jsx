@@ -7,6 +7,7 @@ import { faQuoteLeft, faSave, faEraser } from "@fortawesome/free-solid-svg-icons
 const QuoteManager = () => {
     const [quote, setQuote] = useState("");
     const [author, setAuthor] = useState("");
+    const [heading, setHeading] = useState("");
     const [loading, setLoading] = useState(false);
     const [currentQuote, setCurrentQuote] = useState(null);
 
@@ -18,9 +19,11 @@ const QuoteManager = () => {
         try {
             const doc = await firestore.collection("dailyQuote").doc("current").get();
             if (doc.exists) {
-                setCurrentQuote(doc.data());
-                setQuote(doc.data().text);
-                setAuthor(doc.data().author);
+                const data = doc.data();
+                setCurrentQuote(data);
+                setQuote(data.text);
+                setAuthor(data.author);
+                setHeading(data.heading || "");
             }
         } catch (error) {
             console.error("Error fetching quote:", error);
@@ -38,11 +41,12 @@ const QuoteManager = () => {
         setLoading(true);
         try {
             await firestore.collection("dailyQuote").doc("current").set({
+                heading: heading || "Daily Inspiration",
                 text: quote,
                 author: author || "Unknown",
                 updatedAt: new Date(),
             });
-            setCurrentQuote({ text: quote, author: author || "Unknown" });
+            setCurrentQuote({ heading: heading || "Daily Inspiration", text: quote, author: author || "Unknown" });
             toast.success("Daily quote updated successfully!");
         } catch (error) {
             console.error("Error updating quote:", error);
@@ -55,6 +59,7 @@ const QuoteManager = () => {
     const handleClear = () => {
         setQuote("");
         setAuthor("");
+        setHeading("");
     };
 
     return (
@@ -69,6 +74,7 @@ const QuoteManager = () => {
                     <h3>Current Active Quote</h3>
                     {currentQuote ? (
                         <div className="quote-card-preview">
+                            <h4 style={{ color: '#f59e0b', marginBottom: '5px' }}>{currentQuote.heading || "Daily Inspiration"}</h4>
                             <p className="quote-text">"{currentQuote.text}"</p>
                             <p className="quote-author">- {currentQuote.author}</p>
                         </div>
@@ -78,6 +84,16 @@ const QuoteManager = () => {
                 </div>
 
                 <form onSubmit={handleSaveQuote} className="admin-form">
+                    <div className="form-group">
+                        <label>Heading (Optional)</label>
+                        <input
+                            type="text"
+                            value={heading}
+                            onChange={(e) => setHeading(e.target.value)}
+                            placeholder="e.g. Monday Motivation"
+                        />
+                    </div>
+
                     <div className="form-group">
                         <label>Quote Text</label>
                         <textarea
