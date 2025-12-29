@@ -33,7 +33,6 @@ const ReimbursementPopup = ({ onClose }) => {
         e.preventDefault();
         setIsLoading(true);
 
-        // Create FormData object for multipart/form-data
         const data = new FormData();
         Object.keys(formData).forEach(key => {
             data.append(key, formData[key]);
@@ -46,7 +45,7 @@ const ReimbursementPopup = ({ onClose }) => {
         try {
             const response = await fetch('https://mnet-3c33.vercel.app/send-reimbursement', {
                 method: 'POST',
-                body: data // Content-Type is set automatically by fetch for FormData
+                body: data // 
             });
 
             if (response.ok) {
@@ -57,7 +56,6 @@ const ReimbursementPopup = ({ onClose }) => {
             } else {
                 const errorData = await response.json();
                 console.error("Backend error:", errorData);
-                // Show the actual error from backend to help user debug
                 alert(`Error: ${errorData.error || 'Failed to submit claim'}`);
             }
         } catch (error) {

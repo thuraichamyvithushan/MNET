@@ -30,7 +30,7 @@ const SignInSignUpForm = () => {
   };
 
   const handleForgotPasswordSubmit = async () => {
-    const emailRegex = /^[^@\s]+@huntsmanoptics\.com$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email syntax");
       setEmail("");
@@ -40,6 +40,8 @@ const SignInSignUpForm = () => {
       await auth.sendPasswordResetEmail(email);
       toast.success("Password reset email sent successfully!");
       setShowForgotPassword(false);
+      setIsSignUp(false); // Switch to Login view on desktop
+      setShowRegisterMobile(false); // Switch to Login view on mobile
     } catch (error) {
       console.error("Error sending password reset email:", error);
       toast.error("Failed to send password reset email.");
