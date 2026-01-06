@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { firestore } from "../firebase"; 
+import { firestore } from "../firebase";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
 import { doc, updateDoc, deleteDoc, getDocs, collection } from "firebase/firestore";
 import "./AdminDashboard.css";
+import API_BASE_URL from '../config';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
+  const [leaves, setLeaves] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 6; 
+  const usersPerPage = 6;
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(firestore, "users"));
-        const userData = querySnapshot.docs.map(doc => ({
+        // Fetch Users
+        const usersSnapshot = await getDocs(collection(firestore, "users"));
+        const userData = usersSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
         setUsers(userData);
+
+        // Fetch Leaves
+        const leavesSnapshot = await getDocs(collection(firestore, "leaves"));
+        const leavesData = leavesSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        // Sort leaves by createdAt desc if possible, or client side
+        setLeaves(leavesData);
+
       } catch (error) {
-        console.error("Error fetching users:", error);
-        toast.error("Failed to fetch users");
+        console.error("Error fetching data:", error);
+        toast.error("Failed to fetch data");
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchData();
   }, []);
 
   const updateUserRole = async (userId, newRole) => {
@@ -36,7 +49,7 @@ const AdminDashboard = () => {
       const userRef = doc(firestore, "users", userId);
       await updateDoc(userRef, { role: newRole });
       toast.success("User role updated!");
-      setUsers(prev => prev.map(u => u.id === userId ? {...u, role: newRole} : u));
+      setUsers(prev => prev.map(u => u.id === userId ? { ...u, role: newRole } : u));
     } catch (error) {
       console.error("Error updating role:", error);
       toast.error("Error updating role: " + error.message);
@@ -52,6 +65,41 @@ const AdminDashboard = () => {
     } catch (error) {
       console.error("Error deleting user:", error);
       toast.error("Error deleting user: " + error.message);
+    }
+  };
+
+  const approveLeave = async (leave) => {
+    if (!window.confirm(`Approve leave for ${leave.fullName}?`)) return;
+    try {
+      // 1. Update Firestore
+      const leaveRef = doc(firestore, "leaves", leave.id);
+      await updateDoc(leaveRef, { status: "Approved" });
+
+      // 2. Send Email (Backend)
+      await fetch(`${API_BASE_URL}/send-leave-approval`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leave)
+      });
+
+      toast.success("Leave approved and email sent!");
+      setLeaves(prev => prev.map(l => l.id === leave.id ? { ...l, status: "Approved" } : l));
+    } catch (error) {
+      console.error("Error approving leave:", error);
+      toast.error("Failed to approve leave.");
+    }
+  };
+
+  // Helper to delete leave request if needed
+  const deleteLeave = async (leaveId) => {
+    if (!window.confirm("Delete this leave request?")) return;
+    try {
+      await deleteDoc(doc(firestore, "leaves", leaveId));
+      setLeaves(prev => prev.filter(l => l.id !== leaveId));
+      toast.success("Leave request deleted");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete leave request");
     }
   };
 
@@ -85,18 +133,18 @@ const AdminDashboard = () => {
                   <tr key={user.id}>
                     <td>{user.name || "N/A"}</td>
                     <td>{user.email || "N/A"}</td>
-                   <td>
-                       <select
+                    <td>
+                      <select
                         className="role-select"
-                       value={user.role || "dealer"}
-                       onChange={(e) => updateUserRole(user.id, e.target.value)}
-                       >
-                          <option value="dealer">Dealer</option>
-                          <option value="representative">Representative</option>
-                          <option value="staff">Staff</option>
-                          <option value="admin">Admin</option>
+                        value={user.role || "dealer"}
+                        onChange={(e) => updateUserRole(user.id, e.target.value)}
+                      >
+                        <option value="dealer">Dealer</option>
+                        <option value="representative">Representative</option>
+                        <option value="staff">Staff</option>
+                        <option value="admin">Admin</option>
                       </select>
-                      </td>
+                    </td>
 
                     <td>
                       <button
@@ -126,6 +174,65 @@ const AdminDashboard = () => {
           </div>
         </>
       )}
+
+      {/* Leave Requests Section */}
+      <h2 className="dashboard-title" style={{ marginTop: '2rem' }}>LEAVE REQUESTS</h2>
+      <div className="table-wrapper">
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Dates</th>
+              <th>Reason</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leaves.map(leave => (
+              <tr key={leave.id}>
+                <td>{leave.fullName}</td>
+                <td>
+                  {leave.startDate} to {leave.endDate}<br />
+                  <small>{leave.startTime} - {leave.endTime}</small>
+                </td>
+                <td style={{ maxWidth: '200px', whiteSpace: 'normal' }}>{leave.reason}</td>
+                <td>
+                  <span style={{
+                    color: leave.status === 'Approved' ? 'green' : 'orange',
+                    fontWeight: 'bold'
+                  }}>
+                    {leave.status}
+                  </span>
+                </td>
+                <td>
+                  {leave.status !== 'Approved' && (
+                    <button
+                      className="delete-btn" // Reusing delete-btn style for simplicity or define new
+                      style={{ backgroundColor: 'green', marginRight: '5px' }}
+                      onClick={() => approveLeave(leave)}
+                    >
+                      Approve
+                    </button>
+                  )}
+                  <button
+                    className="delete-btn"
+                    onClick={() => deleteLeave(leave.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {leaves.length === 0 && (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center' }}>No leave requests found.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
     </div>
   );
 };

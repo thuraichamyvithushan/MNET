@@ -66,7 +66,7 @@ app.post('/send-email', async (req, res) => {
 
 app.post('/send-reimbursement', upload.single('receipt'), async (req, res) => {
     const { fullName, email, date, amount, description, department, notes } = req.body;
-    const adminEmail = process.env.EMAIL_ADMIN_MNET || 'thuraichamyvithushan19@gmail.com'; // Target Finance Admin
+    const adminEmail = process.env.EMAIL_ADMIN_MNET || 'thuraichamyvithushan19@gmail.com';
 
     const mailOptions = {
         from: `"Mototrekkin Expense Claims" <${process.env.EMAIL_USER}>`,
@@ -168,6 +168,51 @@ app.post('/send-leave', async (req, res) => {
     }
 });
 
+app.post('/send-leave-approval', async (req, res) => {
+    const { email, fullName, startDate, endDate } = req.body;
+
+    const mailOptions = {
+        from: `"Mototrekkin Leave System" <${process.env.EMAIL_USER}>`,
+        to: email, // Send to the user
+        subject: `Leave Request Approved - ${fullName}`,
+        text: `
+      Dear ${fullName},
+
+      Your leave request has been APPROVED.
+
+      Details:
+      From: ${startDate}
+      To:   ${endDate}
+
+      Enjoy your leave!
+      
+      Best regards,
+      Mototrekkin Admin
+    `,
+        html: `
+      <h2>Leave Request Approved</h2>
+      <p>Dear <strong>${fullName}</strong>,</p>
+      <p>Your leave request has been <strong style="color: green;">APPROVED</strong>.</p>
+      <hr/>
+      <p><strong>From:</strong> ${startDate}</p>
+      <p><strong>To:</strong> ${endDate}</p>
+      <hr/>
+      <p>Enjoy your leave!</p>
+      <br/>
+      <p>Best regards,<br/>Mototrekkin Admin</p>
+    `
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Approval email sent: ' + info.response);
+        res.status(200).json({ message: 'Approval email sent successfully!' });
+    } catch (error) {
+        console.error('Error sending approval email:', error);
+        res.status(500).json({ message: 'Failed to send approval email', error: error.toString() });
+    }
+});
+
 
 
 app.post('/send-safety-report', upload.array('attachments', 5), async (req, res) => {
@@ -177,7 +222,7 @@ app.post('/send-safety-report', upload.array('attachments', 5), async (req, res)
         severity, isInjured, reportedBefore, immediateAction
     } = req.body;
 
-    const safetyEmail = process.env.EMAIL_ADMIN_MNET  || 'thuraichamyvithushan19@gmail.com';
+    const safetyEmail = process.env.EMAIL_ADMIN_MNET || 'thuraichamyvithushan19@gmail.com';
 
     const htmlContent = generateSafetyReportHtml(req.body);
 

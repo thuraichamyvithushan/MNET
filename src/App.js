@@ -27,6 +27,7 @@ import Navbar2 from './components/navdrive';
 import AdminPage from './components/AdminMainPage';
 import AdminPanel from './components/AdminPanel';
 import CompanyDashboard from './components/CompanyDashboard';
+import UserPanel from './components/UserPanel';
 import CalendarPage from './components/CalendarPage';
 import { AuthProvider } from './context/AuthContext';
 
@@ -66,6 +67,7 @@ function App() {
 
                     {/* Admin Panel - Role protected inside component */}
                     <Route path="admin-panel" element={<AdminPanel />} />
+                    <Route path="user-panel" element={<UserPanel />} />
 
                     {/* All other pages (still accessible) */}
                     <Route path="company-dashboard" element={<CompanyDashboard />} />

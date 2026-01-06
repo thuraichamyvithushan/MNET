@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ReimbursementPopup.css';
+import API_BASE_URL from '../config';
 
 const ReimbursementPopup = ({ onClose }) => {
     const [formData, setFormData] = useState({
@@ -42,8 +43,9 @@ const ReimbursementPopup = ({ onClose }) => {
             data.append('receipt', receiptFile);
         }
 
+
         try {
-            const response = await fetch('https://mnet-3c33.vercel.app/send-reimbursement', {
+            const response = await fetch(`${API_BASE_URL}/send-reimbursement`, {
                 method: 'POST',
                 body: data // 
             });

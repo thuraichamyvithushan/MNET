@@ -22,6 +22,7 @@ import {
   faUserCircle,
   faTimes,
   faUserShield, // Admin icon
+  faUserClock,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
@@ -197,6 +198,12 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faNewspaper} />
               <span style={{ marginLeft: "10px" }}>News & updates</span>
             </Link>
+            {!isAdmin && (
+              <Link to="/user-panel" className="menu_links" onClick={closeSidebar}>
+                <FontAwesomeIcon icon={faUserClock} />
+                <span style={{ marginLeft: "10px" }}>User Panel</span>
+              </Link>
+            )}
             <Link to="/company-dashboard" className="menu_links" onClick={closeSidebar}>
               <FontAwesomeIcon icon={faCrosshairs} />
               <span style={{ marginLeft: "10px" }}> Website & Socials</span>

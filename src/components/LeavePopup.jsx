@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './LeavePopup.css';
+import { firestore, auth } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import API_BASE_URL from '../config';
 
 const LeavePopup = ({ onClose }) => {
     const [formData, setFormData] = useState({
@@ -27,7 +30,27 @@ const LeavePopup = ({ onClose }) => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('https://mnet-3c33.vercel.app/send-leave', {
+            // 1. Save to Firestore
+            const user = auth.currentUser;
+            if (user) {
+                await addDoc(collection(firestore, "leaves"), {
+                    userId: user.uid,
+                    fullName: formData.fullName,
+                    email: formData.email,
+                    startDate: formData.startDate,
+                    startTime: formData.startTime,
+                    endDate: formData.endDate,
+                    endTime: formData.endTime,
+                    reason: formData.reason,
+                    status: 'Pending',
+                    createdAt: new Date().toISOString()
+                });
+            } else {
+                console.warn("No authenticated user found when submitting leave.");
+            }
+
+            // 2. Send Email to Admin (Backend)
+            const response = await fetch(`${API_BASE_URL}/send-leave`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

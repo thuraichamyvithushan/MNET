@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ITSupportPopup.css';
+import API_BASE_URL from '../config';
 
 const ITSupportPopup = ({ onClose }) => {
     const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ const ITSupportPopup = ({ onClose }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://mnet-3c33.vercel.app/send-email', {
+            const response = await fetch(`${API_BASE_URL}/send-email`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

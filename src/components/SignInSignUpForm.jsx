@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import ResetPasswordModal from "./ResetPasswordModal";
@@ -13,6 +14,17 @@ const SignInSignUpForm = () => {
   const [showRegisterMobile, setShowRegisterMobile] = useState(false); // mobile toggle
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/home");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   // Handle successful registration (NO toast here)
   const handleSuccessfulRegistration = () => {

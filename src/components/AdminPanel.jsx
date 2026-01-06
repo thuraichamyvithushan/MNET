@@ -6,8 +6,9 @@ import Footer from "./Footer";
 import QuoteManager from "./QuoteManager";
 import NewsManager from "./NewsManager";
 import UserManager from "./UserManager";
+import LeaveManager from "./LeaveManager";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuoteLeft, faNewspaper, faChartLine, faUsers, faCogs, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faQuoteLeft, faNewspaper, faChartLine, faUsers, faCogs, faArrowLeft, faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
 import "./AdminPanel.css";
 
 const AdminPanel = () => {
@@ -59,6 +60,16 @@ const AdminPanel = () => {
                             <button className="admin-btn">Manage News</button>
                         </div>
 
+                        {/* Leave Management Card */}
+                        <div className="admin-card" onClick={() => setActiveTab("leaves")}>
+                            <div className="admin-card-icon">
+                                <FontAwesomeIcon icon={faCalendarCheck} />
+                            </div>
+                            <h3>Leave Requests</h3>
+                            <p>Review and approve staff leave requests</p>
+                            <button className="admin-btn">Manage Leaves</button>
+                        </div>
+
 
                     </div>
                 );
@@ -68,6 +79,8 @@ const AdminPanel = () => {
                 return <NewsManager />;
             case "users":
                 return <UserManager />;
+            case "leaves":
+                return <LeaveManager />;
             case "reports":
                 return <div className="placeholder-view"><h2>Reports Coming Soon</h2></div>;
             case "settings":

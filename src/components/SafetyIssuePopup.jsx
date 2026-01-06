@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './SafetyIssuePopup.css';
+import API_BASE_URL from '../config';
 
 const SafetyIssuePopup = ({ onClose }) => {
     const [formData, setFormData] = useState({
@@ -68,12 +69,14 @@ const SafetyIssuePopup = ({ onClose }) => {
         Object.keys(formData).forEach(key => {
             submissionData.append(key, formData[key]);
         });
-      
+
         files.forEach(file => {
             submissionData.append('attachments', file);
         });
 
-        const API_URL = 'https://mnet-3c33.vercel.app/send-safety-report'; 
+        // ... inside component ...
+
+        const API_URL = `${API_BASE_URL}/send-safety-report`;
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
@@ -122,7 +125,7 @@ const SafetyIssuePopup = ({ onClose }) => {
 
                 <form className="safety-popup-body" onSubmit={handleSubmit}>
 
-                   
+
                     <div className="form-section">
                         <span className="section-title">Reporter Details</span>
                         <div className="form-grid">
@@ -145,7 +148,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                 
+
                     <div className="form-section">
                         <span className="section-title">Issue Information</span>
                         <div className="form-grid">
@@ -176,7 +179,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                
+
                     <div className="form-section">
                         <span className="section-title">Description</span>
                         <div className="form-group full-width">
@@ -189,7 +192,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-               
+
                     <div className="form-section">
                         <span className="section-title">Risk Assessment</span>
                         <div className="form-grid">
@@ -217,7 +220,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-               
+
                     <div className="form-section">
                         <span className="section-title">Attachments (Photos/Videos)</span>
                         <div className="form-group full-width">
@@ -234,7 +237,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                    
+
                     <div className="form-section">
                         <span className="section-title">Action & Consent</span>
                         <div className="form-grid">
@@ -265,7 +268,7 @@ const SafetyIssuePopup = ({ onClose }) => {
                         </div>
                     </div>
 
-                 
+
                     <div className="safety-popup-footer">
                         <button type="button" className="btn-reset" onClick={resetForm}>Reset</button>
                         <button type="submit" className="btn-submit" disabled={isSubmitting}>
