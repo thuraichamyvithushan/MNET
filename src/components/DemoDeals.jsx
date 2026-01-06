@@ -1,9 +1,9 @@
+
 import './BusinessSub.css'
 import React from 'react';
 import { Link } from "react-router-dom";
-import Footer from './Footer';
 
-const DemoDeals = () => { 
+const DemoDeals = () => {
     return (
         <div>
             {/* Hero Image */}
@@ -29,9 +29,9 @@ const DemoDeals = () => {
                                     target='_blank'
                                     rel="noopener noreferrer"
                                 >
-                                    <img src="./images/roundfb.png" alt='Facebook' className="img-fluid mb-2"/>
+                                    <img src="./images/roundfb.png" alt='Facebook' className="img-fluid mb-2" />
                                 </Link>
-                                <h4 className="card-title">Facebook</h4> 
+                                <h4 className="card-title">Facebook</h4>
                             </div>
                         </div>
                     </div>
@@ -45,9 +45,9 @@ const DemoDeals = () => {
                                     target='_blank'
                                     rel="noopener noreferrer"
                                 >
-                                    <img src="./images/instaround.jpeg" alt='Instagram' className="img-fluid mb-2"/>
+                                    <img src="./images/instaround.jpeg" alt='Instagram' className="img-fluid mb-2" />
                                 </Link>
-                                <h4 className="card-title">Instagram</h4> 
+                                <h4 className="card-title">Instagram</h4>
                             </div>
                         </div>
                     </div>
@@ -61,16 +61,14 @@ const DemoDeals = () => {
                                     target='_blank'
                                     rel="noopener noreferrer"
                                 >
-                                    <img src="./images/websiteicon.jpeg" alt='Website' className="img-fluid mb-2"/>
+                                    <img src="./images/websiteicon.jpeg" alt='Website' className="img-fluid mb-2" />
                                 </Link>
-                                <h4 className="card-title">Website</h4> 
+                                <h4 className="card-title">Website</h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <Footer/>
         </div>
     )
 }

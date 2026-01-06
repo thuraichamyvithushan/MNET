@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+
 
 
 const Clearance = () => {
@@ -17,7 +17,7 @@ const Clearance = () => {
 
       {/* Content Section */}
       <div className="container" style={{ marginBottom: "80px", width: "80%" }}>
-        <h3 style={{ marginTop: '20px', textAlign: "center",  color: "#672423" }}>Clearance Customer Database AU/NZ</h3>
+        <h3 style={{ marginTop: '20px', textAlign: "center", color: "#672423" }}>Clearance Customer Database AU/NZ</h3>
 
         <div className='row' style={{ justifyContent: "center" }}>
           {/* Card 1 */}
@@ -69,10 +69,8 @@ const Clearance = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
 
-export default  Clearance;
+export default Clearance;

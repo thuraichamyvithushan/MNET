@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+
 import './BusinessSub.css'
 
-const HuntsmanThermo = () => {    
+const HuntsmanThermo = () => {
     return (
         <div>
             {/* Hero Image */}
@@ -29,9 +29,9 @@ const HuntsmanThermo = () => {
                                     target='_blank'
                                     rel="noopener noreferrer"
                                 >
-                                    <img src="./images/roundfb.png" alt='Facebook' className="img-fluid mb-2"/>
+                                    <img src="./images/roundfb.png" alt='Facebook' className="img-fluid mb-2" />
                                 </Link>
-                                <h4 className="card-title">Facebook</h4> 
+                                <h4 className="card-title">Facebook</h4>
                             </div>
                         </div>
                     </div>
@@ -45,9 +45,9 @@ const HuntsmanThermo = () => {
                                     target='_blank'
                                     rel="noopener noreferrer"
                                 >
-                                    <img src="./images/linkdn2.png" alt='LinkedIn' className="img-fluid mb-2"/>
+                                    <img src="./images/linkdn2.png" alt='LinkedIn' className="img-fluid mb-2" />
                                 </Link>
-                                <h4 className="card-title">LinkedIn</h4> 
+                                <h4 className="card-title">LinkedIn</h4>
                             </div>
                         </div>
                     </div>
@@ -61,17 +61,17 @@ const HuntsmanThermo = () => {
                                     target='_blank'
                                     rel="noopener noreferrer"
                                 >
-                                    <img src="./images/BigCommerce-Quiz.jpg" alt='BigCommerce' className="img-fluid mb-2"/>
+                                    <img src="./images/BigCommerce-Quiz.jpg" alt='BigCommerce' className="img-fluid mb-2" />
                                 </Link>
-                                <h4 className="card-title">BigCommerce</h4> 
+                                <h4 className="card-title">BigCommerce</h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <Footer/>
         </div>
+
     )
 }
 

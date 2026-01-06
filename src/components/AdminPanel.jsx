@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import Navbar from "./navbar";
-import Footer from "./Footer";
 import QuoteManager from "./QuoteManager";
 import NewsManager from "./NewsManager";
 import UserManager from "./UserManager";
@@ -108,7 +107,6 @@ const AdminPanel = () => {
 
 
             </div>
-            <Footer />
         </div>
     );
 };

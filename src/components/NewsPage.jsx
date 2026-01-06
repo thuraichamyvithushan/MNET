@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { firestore } from "../firebase";
 import Navbar from "./navbar";
-import Footer from "./Footer";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -178,7 +178,7 @@ const NewsPage = () => {
                 )}
             </div>
 
-            <Footer />
+      
         </div>
     );
 };

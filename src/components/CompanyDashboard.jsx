@@ -16,7 +16,7 @@ import {
     faYoutube
 } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
-import Footer from './Footer';
+
 
 const CompanyDashboard = () => {
     const companies = [
@@ -32,7 +32,7 @@ const CompanyDashboard = () => {
                 youtube: "https://www.youtube.com/channel/UCe__2WpNr0v_FgmTMq-hvdQ/about?view_as=subscriber"
             },
             image: "/images/moto.png",
-            color: "#be9e33ff" 
+            color: "#be9e33ff"
         },
         {
             id: 2,
@@ -47,7 +47,7 @@ const CompanyDashboard = () => {
                 youtube: "#"
             },
             image: "/images/pink.png",
-            color: "#be9e33ff" 
+            color: "#be9e33ff"
         },
         {
             id: 3,
@@ -62,10 +62,10 @@ const CompanyDashboard = () => {
                 youtube: "#"
             },
             image: "/images/vdj.png",
-            color: "#be9e33ff" 
+            color: "#be9e33ff"
         },
-       
-         {
+
+        {
             id: 4,
             name: "medevac.flights",
             icon: faMagnet,
@@ -78,8 +78,8 @@ const CompanyDashboard = () => {
                 youtube: "#"
             },
             image: "/images/mf.png",
-            color: "#be9e33ff" 
-        }, 
+            color: "#be9e33ff"
+        },
         {
             id: 5,
             name: "Tidy Tactics",
@@ -93,9 +93,9 @@ const CompanyDashboard = () => {
                 youtube: "#"
             },
             image: "/images/tt.png",
-            color: "#be9e33ff" 
+            color: "#be9e33ff"
         },
-         {
+        {
             id: 6,
             name: "Account Hero",
             icon: faMagnet,
@@ -108,7 +108,7 @@ const CompanyDashboard = () => {
                 youtube: "#"
             },
             image: "/images/ah.png",
-            color: "#be9e33ff" 
+            color: "#be9e33ff"
         },
         {
             id: 7,
@@ -123,7 +123,7 @@ const CompanyDashboard = () => {
                 youtube: "#"
             },
             image: "/images/gsdg.png",
-            color: "#be9e33ff" 
+            color: "#be9e33ff"
         },
         {
             id: 8,
@@ -138,7 +138,7 @@ const CompanyDashboard = () => {
                 youtube: "#"
             },
             image: "/images/uc.jpg",
-            color: "#be9e33ff" 
+            color: "#be9e33ff"
         },
 
     ];
@@ -368,7 +368,6 @@ const CompanyDashboard = () => {
                 </div >
 
             </div >
-            <Footer />
         </>
     );
 };

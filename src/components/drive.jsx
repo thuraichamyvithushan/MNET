@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar2 from "./navdrive";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+
 import "./drive.css";
 
 const Drive = () => {
@@ -50,8 +50,6 @@ const Drive = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 };

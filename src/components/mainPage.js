@@ -1,5 +1,4 @@
 import HomePageGrid from "./homePageGrid"
-import Footer from "./Footer";
 import Navimage from './navimage';
 import Navbar from "./navbar";
 import NewsSection from "./NewsSection";
@@ -13,7 +12,6 @@ const MainPage = function () {
             <NewsSection />
             {/* <NoticeBoard/> */}
             <HomePageGrid />
-            <Footer />
         </div>
     )
 }

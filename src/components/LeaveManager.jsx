@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faTrash, faSearch, faClock, faCalendarDay } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTrash, faSearch, faClock, faCalendarDay, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { doc, updateDoc, deleteDoc, getDocs, collection } from "firebase/firestore";
 import API_BASE_URL from '../config';
 
@@ -53,6 +53,28 @@ const LeaveManager = () => {
         } catch (error) {
             console.error("Error approving leave:", error);
             toast.error("Failed to approve leave.");
+        }
+    };
+
+    const rejectLeave = async (leave) => {
+        if (!window.confirm(`Reject leave request for ${leave.fullName}?`)) return;
+        try {
+            // 1. Update Firestore
+            const leaveRef = doc(firestore, "leaves", leave.id);
+            await updateDoc(leaveRef, { status: "Rejected" });
+
+            // 2. Send Email (Backend)
+            await fetch(`${API_BASE_URL}/send-leave-rejection`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(leave)
+            });
+
+            toast.success("Leave rejected and email sent!");
+            setLeaves(prev => prev.map(l => l.id === leave.id ? { ...l, status: "Rejected" } : l));
+        } catch (error) {
+            console.error("Error rejecting leave:", error);
+            toast.error("Failed to reject leave.");
         }
     };
 
@@ -140,31 +162,66 @@ const LeaveManager = () => {
         verticalAlign: "middle"
     };
 
-    const statusBadgeStyle = (status) => ({
-        padding: "4px 10px",
-        borderRadius: "12px",
-        fontSize: "0.75rem",
-        fontWeight: "bold",
-        textTransform: "uppercase",
-        background: status === 'Approved' ? "rgba(34, 197, 94, 0.2)" : "rgba(234, 179, 8, 0.2)",
-        color: status === 'Approved' ? "#4ade80" : "#facc15",
-        border: `1px solid ${status === 'Approved' ? "#4ade80" : "#facc15"}`,
-        display: "inline-block"
-    });
+    const statusBadgeStyle = (status) => {
+        let bgColor, textColor, borderColor;
 
-    const btnStyle = (type) => ({
-        padding: "8px 12px",
-        border: "none",
-        borderRadius: "6px",
-        cursor: "pointer",
-        fontWeight: "bold",
-        fontSize: "0.85rem",
-        marginLeft: "10px",
-        transition: "opacity 0.2s",
-        background: type === 'delete' ? "rgba(239, 68, 68, 0.2)" : "rgba(34, 197, 94, 0.2)",
-        color: type === 'delete' ? "#ef4444" : "#4ade80",
-        border: `1px solid ${type === 'delete' ? "#ef4444" : "#4ade80"}`
-    });
+        if (status === 'Approved') {
+            bgColor = "rgba(34, 197, 94, 0.2)";
+            textColor = "#4ade80";
+            borderColor = "#4ade80";
+        } else if (status === 'Rejected') {
+            bgColor = "rgba(239, 68, 68, 0.2)";
+            textColor = "#ef4444";
+            borderColor = "#ef4444";
+        } else {
+            bgColor = "rgba(234, 179, 8, 0.2)";
+            textColor = "#facc15";
+            borderColor = "#facc15";
+        }
+
+        return {
+            padding: "4px 10px",
+            borderRadius: "12px",
+            fontSize: "0.75rem",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            background: bgColor,
+            color: textColor,
+            border: `1px solid ${borderColor}`,
+            display: "inline-block"
+        };
+    };
+
+    const btnStyle = (type) => {
+        let bgColor, textColor, borderColor;
+
+        if (type === 'delete') {
+            bgColor = "rgba(239, 68, 68, 0.2)";
+            textColor = "#ef4444";
+            borderColor = "#ef4444";
+        } else if (type === 'approve') {
+            bgColor = "rgba(34, 197, 94, 0.2)";
+            textColor = "#4ade80";
+            borderColor = "#4ade80";
+        } else if (type === 'reject') {
+            bgColor = "rgba(251, 146, 60, 0.2)";
+            textColor = "#fb923c";
+            borderColor = "#fb923c";
+        }
+
+        return {
+            padding: "8px 12px",
+            border: `1px solid ${borderColor}`,
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "0.85rem",
+            marginLeft: "10px",
+            transition: "all 0.2s",
+            background: bgColor,
+            color: textColor
+        };
+    };
 
     if (loading) {
         return <div style={{ textAlign: "center", color: "#f59e0b", padding: "50px" }}>Loading leave requests...</div>;

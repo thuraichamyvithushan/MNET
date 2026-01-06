@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+
 
 
 const Dealerlocate = () => {
@@ -17,7 +17,7 @@ const Dealerlocate = () => {
 
       {/* Content Section */}
       <div className="container" style={{ marginBottom: "80px", width: "80%" }}>
-        <h3 style={{ marginTop: '20px', textAlign: "center",  color: "#672423" }}>Dealer Locator</h3>
+        <h3 style={{ marginTop: '20px', textAlign: "center", color: "#672423" }}>Dealer Locator</h3>
 
         <div className='row' style={{ justifyContent: "center" }}>
           {/* Card 1 */}
@@ -70,9 +70,8 @@ const Dealerlocate = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };
 
-export default  Dealerlocate;
+export default Dealerlocate;

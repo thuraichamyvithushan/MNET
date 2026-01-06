@@ -73,12 +73,9 @@ const HomePageGrid = function () {
                             <div className="col-xl-2 col-md-4 col-sm-6 mt-3 anime-2 center-card">
                                 <div className="card home_card">
                                     <div className="card-body" style={{ textAlign: "center" }}>
-                                        <div
-                                            onClick={() => setShowLeavePopup(true)}
-                                            style={{ cursor: "pointer" }}
-                                        >
+                                        <Link to="/leave-application" style={{ cursor: "pointer", textDecoration: "none", color: "inherit" }}>
                                             <img height="100px" width="100px" src="./images/leave application.png" alt=" Leave application" />
-                                        </div>
+                                        </Link>
                                         <h4 className="card-title"> Leave application</h4>
                                     </div>
                                 </div>

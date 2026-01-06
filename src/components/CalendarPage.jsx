@@ -6,7 +6,6 @@ import { useAuth } from '../context/AuthContext';
 import { firestore } from '../firebase'; // Import Firestore
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCalendarPlus, faTrash, faChevronLeft, faChevronRight, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
-import Footer from './Footer';
 
 const localizer = momentLocalizer(moment);
 
@@ -416,7 +415,6 @@ const CalendarPage = () => {
                 )}
 
             </div>
-            <Footer />
         </>
     );
 };

@@ -10,7 +10,7 @@ import DemoDeals from './components/DemoDeals';
 import SperosFlashlight from './components/SperosFlashlight';
 import SignInSignUpForm from './components/SignInSignUpForm';
 import MagneTech from './components/MageTech';
-import News from './components/news';
+
 import NewsPage from './components/NewsPage';
 import PrivateRoute from './PrivateRoute';
 import { auth } from './firebase'; // Only need auth now
@@ -28,8 +28,10 @@ import AdminPage from './components/AdminMainPage';
 import AdminPanel from './components/AdminPanel';
 import CompanyDashboard from './components/CompanyDashboard';
 import UserPanel from './components/UserPanel';
+import LeaveApplication from './components/LeaveApplication';
 import CalendarPage from './components/CalendarPage';
 import { AuthProvider } from './context/AuthContext';
+import Footer from './components/Footer';
 
 function App() {
   const [isAuthLoaded, setIsAuthLoaded] = useState(false);
@@ -68,6 +70,7 @@ function App() {
                     {/* Admin Panel - Role protected inside component */}
                     <Route path="admin-panel" element={<AdminPanel />} />
                     <Route path="user-panel" element={<UserPanel />} />
+                    <Route path="leave-application" element={<LeaveApplication />} />
 
                     {/* All other pages (still accessible) */}
                     <Route path="company-dashboard" element={<CompanyDashboard />} />
@@ -77,7 +80,7 @@ function App() {
                     <Route path="huntsman-thermo" element={<HuntsmanThermo />} />
                     <Route path="coast-outdoor" element={<CoastOutdoor />} />
                     <Route path="demo-deals" element={<DemoDeals />} />
-                    <Route path="news-updates" element={<News />} />
+                    {/* <Route path="news-updates" element={<News />} /> */}
                     <Route path="news-list" element={<NewsPage />} />
                     <Route path="speros-flashlight" element={<SperosFlashlight />} />
                     <Route path="magnetech" element={<MagneTech />} />
@@ -114,6 +117,7 @@ function App() {
                       }
                     />
                   </Routes>
+                  <Footer />
                 </PrivateRoute>
               }
             />
