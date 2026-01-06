@@ -119,7 +119,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .leave-dashboard-container {
-        padding: 100px 15px 40px;
+        padding: 100px 25px 40px;
     }
 
     .leave-dashboard-title {
