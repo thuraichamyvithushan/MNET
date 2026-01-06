@@ -476,3 +476,64 @@ text-align: center;
     height: 100vh;
   }
 }
+
+/* Modern Button in Navbar (User & Admin Panel) */
+.nav-modern-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white !important;
+  padding: 6px 16px;
+  /* Reduced from 8px 20px */
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 13px;
+  /* Reduced from 14px */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  /* Reduced from 20px */
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-modern-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+  background: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
+}
+
+.nav-modern-btn:active {
+  transform: translateY(0);
+}
+
+/* Profile Container Spacing */
+.navbar-profile-container {
+  margin-top: 0px;
+  margin-left: 10px;
+  /* Reduced from 20px */
+}
+
+/* Mobile Spacing Adjustments */
+@media screen and (max-width: 768px) {
+  .nav-modern-btn {
+    margin-right: 5px;
+    /* Reduce right margin of button */
+    padding: 5px 12px;
+    /* Slightly smaller button on mobile */
+    font-size: 11px;
+  }
+
+  .navbar-profile-container {
+    margin-left: 5px;
+    /* Reduce left margin of profile */
+  }
+
+  .user-profile-image {
+    /* Ensure image isn't too big on mobile if needed, though 40px is likely fine */
+    width: 35px !important;
+    height: 35px !important;
+  }
+}

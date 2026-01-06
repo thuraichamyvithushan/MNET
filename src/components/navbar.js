@@ -125,7 +125,25 @@ const Navbar = () => {
           </button>
 
           <div style={searchBarStyle}>
-            <li style={{ marginTop: "0px", marginLeft: "20px" }}>
+            {!isAdmin && (
+              <Link
+                to="/user-panel"
+                className="nav-modern-btn"
+                title="User Panel"
+              >
+                <span>User Panel</span>
+              </Link>
+            )}
+            {isAdmin && (
+              <Link
+                to="/admin-panel"
+                className="nav-modern-btn"
+                title="Admin Panel"
+              >
+                <span>Admin Panel</span>
+              </Link>
+            )}
+            <div className="navbar-profile-container">
               {profilePicture ? (
                 <img
                   src={profilePicture}
@@ -153,7 +171,7 @@ const Navbar = () => {
                   onEditProfile={handleOpenEditProfile}
                 />
               )}
-            </li>
+            </div>
           </div>
 
           {/* Overlay for mobile/tablet */}
@@ -186,24 +204,13 @@ const Navbar = () => {
               <span style={{ marginLeft: "10px" }}>Home</span>
             </Link>
 
-            {/* Admin Panel - Only visible to admins */}
-            {isAdmin && (
-              <Link to="/admin-panel" className="menu_links admin-menu-item" onClick={closeSidebar}>
-                <FontAwesomeIcon icon={faUserShield} />
-                <span style={{ marginLeft: "10px" }}>Admin Panel</span>
-              </Link>
-            )}
+
 
             <Link to="/news-list" className="menu_links" onClick={closeSidebar}>
               <FontAwesomeIcon icon={faNewspaper} />
               <span style={{ marginLeft: "10px" }}>News & updates</span>
             </Link>
-            {!isAdmin && (
-              <Link to="/user-panel" className="menu_links" onClick={closeSidebar}>
-                <FontAwesomeIcon icon={faUserClock} />
-                <span style={{ marginLeft: "10px" }}>User Panel</span>
-              </Link>
-            )}
+
             <Link to="/company-dashboard" className="menu_links" onClick={closeSidebar}>
               <FontAwesomeIcon icon={faCrosshairs} />
               <span style={{ marginLeft: "10px" }}> Website & Socials</span>
