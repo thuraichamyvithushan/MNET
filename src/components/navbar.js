@@ -125,7 +125,7 @@ const Navbar = () => {
           </button>
 
           <div style={searchBarStyle}>
-            {!isAdmin && (
+            {/* {!isAdmin && (
               <Link
                 to="/user-panel"
                 className="nav-modern-btn"
@@ -133,7 +133,7 @@ const Navbar = () => {
               >
                 <span>My Panel</span>
               </Link>
-            )}
+            )} */}
             {isAdmin && (
               <Link
                 to="/admin-panel"
