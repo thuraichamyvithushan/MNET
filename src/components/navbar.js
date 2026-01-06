@@ -131,7 +131,7 @@ const Navbar = () => {
                 className="nav-modern-btn"
                 title="User Panel"
               >
-                <span>User Panel</span>
+                <span>My Panel</span>
               </Link>
             )}
             {isAdmin && (
