@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { firestore } from '../firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
 import Loader from './Loader';
 import './UserPanel.css'; // We'll create this or reuse admin css
 import { useAuth } from '../context/AuthContext';
@@ -11,29 +11,35 @@ const UserPanel = () => {
     const { user, loading: authLoading } = useAuth();
 
     useEffect(() => {
-        const fetchMyLeaves = async () => {
-            if (authLoading) return; // Wait for auth to initialize
-            if (!user) {
-                setDataLoading(false); // No user, stop loading data
-                return;
-            }
+        if (authLoading) return; // Wait for auth to initialize
+        if (!user) {
+            setDataLoading(false); // No user, stop loading data
+            return;
+        }
 
-            try {
-                const q = query(collection(firestore, "leaves"), where("userId", "==", user.uid));
-                const querySnapshot = await getDocs(q);
-                const leavesData = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-                setLeaves(leavesData);
-            } catch (error) {
-                console.error("Error fetching leaves:", error);
-            } finally {
-                setDataLoading(false);
-            }
+        console.log("Setting up real-time listener for user:", user.uid);
+
+        // Set up real-time listener
+        const q = query(collection(firestore, "leaves"), where("userId", "==", user.uid));
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const leavesData = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            console.log("Leaves updated in real-time:", leavesData.length, "items");
+            setLeaves(leavesData);
+            setDataLoading(false);
+        }, (error) => {
+            console.error("Error fetching leaves:", error);
+            setDataLoading(false);
+        });
+
+        // Cleanup listener on unmount
+        return () => {
+            console.log("Cleaning up real-time listener");
+            unsubscribe();
         };
-
-        fetchMyLeaves();
     }, [user, authLoading]);
 
     if (authLoading || dataLoading) return <Loader />;

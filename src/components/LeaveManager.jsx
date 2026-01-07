@@ -22,7 +22,6 @@ const LeaveManager = () => {
                 id: doc.id,
                 ...doc.data(),
             }));
-            // Ideally sort by date here or in query
             setLeaves(leavesData);
             setLoading(false);
         } catch (error) {
@@ -35,13 +34,9 @@ const LeaveManager = () => {
     const approveLeave = async (leave) => {
         if (!window.confirm(`Approve leave for ${leave.fullName}?`)) return;
         try {
-            // 1. Update Firestore
             const leaveRef = doc(firestore, "leaves", leave.id);
             await updateDoc(leaveRef, { status: "Approved" });
 
-            // ... inside component ...
-
-            // 2. Send Email (Backend)
             await fetch(`${API_BASE_URL}/send-leave-approval`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -59,11 +54,9 @@ const LeaveManager = () => {
     const rejectLeave = async (leave) => {
         if (!window.confirm(`Reject leave request for ${leave.fullName}?`)) return;
         try {
-            // 1. Update Firestore
             const leaveRef = doc(firestore, "leaves", leave.id);
             await updateDoc(leaveRef, { status: "Rejected" });
 
-            // 2. Send Email (Backend)
             await fetch(`${API_BASE_URL}/send-leave-rejection`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -95,7 +88,7 @@ const LeaveManager = () => {
         (leave.email && leave.email.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
-    // --- Styles (Black/Gold Palette - User Manager Style) ---
+
     const containerStyle = {
         padding: "20px",
         color: "#fff",
@@ -219,7 +212,8 @@ const LeaveManager = () => {
             cursor: "pointer",
             fontWeight: "bold",
             fontSize: "0.85rem",
-            marginLeft: "10px",
+            marginLeft: "15px",
+            marginBottom:"10px",
             transition: "all 0.2s",
             background: bgColor,
             color: textColor
