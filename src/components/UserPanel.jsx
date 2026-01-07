@@ -57,6 +57,7 @@ const UserPanel = () => {
                             <tr>
                                 <th>Start Date</th>
                                 <th>End Date</th>
+                                <th>Type</th>
                                 <th>Reason</th>
                                 <th>Status</th>
                             </tr>
@@ -66,6 +67,7 @@ const UserPanel = () => {
                                 <tr key={leave.id}>
                                     <td>{leave.startDate}</td>
                                     <td>{leave.endDate}</td>
+                                    <td>{leave.leaveType || "N/A"}</td>
                                     <td>{leave.reason}</td>
                                     <td>
                                         <span className={`status-badge ${leave.status === 'Approved' ? 'status-approved' :

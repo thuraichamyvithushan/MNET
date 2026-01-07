@@ -12,6 +12,7 @@ const LeavePopup = ({ onClose }) => {
         endDate: '',
         startTime: '',
         endTime: '',
+        leaveType: '',
         reason: ''
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -41,6 +42,7 @@ const LeavePopup = ({ onClose }) => {
                     startTime: formData.startTime,
                     endDate: formData.endDate,
                     endTime: formData.endTime,
+                    leaveType: formData.leaveType,
                     reason: formData.reason,
                     status: 'Pending',
                     createdAt: new Date().toISOString()
@@ -123,6 +125,26 @@ const LeavePopup = ({ onClose }) => {
                                 />
                             </div>
 
+                            <div className="form-group">
+                                <label htmlFor="leaveType">Leave Type</label>
+                                <select
+                                    id="leaveType"
+                                    name="leaveType"
+                                    value={formData.leaveType}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value="" disabled>Select Leave Type</option>
+                                    <option value="Annual Leave">Annual Leave</option>
+                                    <option value="Parental Leave (Unpaid)">Parental Leave (Unpaid)</option>
+                                    <option value="Personal (Sick/Carer’s) Leave">Personal (Sick/Carer’s) Leave</option>
+                                    <option value="Carer’s Leave (Unpaid)">Carer’s Leave (Unpaid)</option>
+                                    <option value="Compassionate Leave (Unpaid)">Compassionate Leave (Unpaid)</option>
+                                    <option value="Community Service Leave">Community Service Leave</option>
+                                    <option value="Other Unpaid Leave">Other Unpaid Leave</option>
+                                </select>
+                            </div>
+
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                                 <div className="form-group">
                                     <label htmlFor="startDate">Start Date</label>
@@ -184,6 +206,10 @@ const LeavePopup = ({ onClose }) => {
                                     placeholder="Feeling unwell, need rest"
                                 />
                             </div>
+
+                            <p className="leave-note" style={{ fontSize: '0.85rem', color: '#888', fontStyle: 'italic', marginBottom: '1rem' }}>
+                                “Within 7 days prior — no active job/leave accumulated and not in breach of employment conditions.”
+                            </p>
 
                             <button type="submit" className="submit-btn" disabled={isLoading}>
                                 {isLoading ? 'Submitting...' : 'Submit Leave Request'}

@@ -216,7 +216,7 @@ const LeaveManager = () => {
             transition: "all 0.2s",
             background: bgColor,
             color: textColor,
-            marginBottom:"10px"
+            marginBottom: "10px"
         };
     };
 
@@ -255,6 +255,7 @@ const LeaveManager = () => {
                             <tr>
                                 <th style={{ ...thStyle, minWidth: "180px" }}>Employee</th>
                                 <th style={{ ...thStyle, minWidth: "200px" }}>Date & Time</th>
+                                <th style={{ ...thStyle, minWidth: "150px" }}>Leave Type</th>
                                 <th style={{ ...thStyle, minWidth: "250px" }}>Reason</th>
                                 <th style={{ ...thStyle, minWidth: "120px" }}>Status</th>
                                 <th style={{ ...thStyle, textAlign: "right", minWidth: "200px" }}>Actions</th>
@@ -276,6 +277,9 @@ const LeaveManager = () => {
                                             <FontAwesomeIcon icon={faClock} style={{ color: '#888' }} />
                                             {leave.startTime} - {leave.endTime}
                                         </div>
+                                    </td>
+                                    <td style={{ ...tdStyle, minWidth: "150px" }}>
+                                        {leave.leaveType || "N/A"}
                                     </td>
                                     <td style={{ ...tdStyle, minWidth: '250px', maxWidth: '300px' }}>
                                         {leave.reason}
