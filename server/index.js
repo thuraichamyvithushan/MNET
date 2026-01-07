@@ -66,7 +66,7 @@ app.post('/send-email', async (req, res) => {
 
 app.post('/send-reimbursement', upload.single('receipt'), async (req, res) => {
     const { fullName, email, date, amount, description, department, notes } = req.body;
-    const adminEmail = process.env.EMAIL_ADMIN_MNET || 'thuraichamyvithushan19@gmail.com';
+    const adminEmail = process.env.EMAIL_ADMIN_MNET || 'accounts@mototrekkin.com.au';
 
     const mailOptions = {
         from: `"Mototrekkin Expense Claims" <${process.env.EMAIL_USER}>`,
@@ -124,7 +124,7 @@ app.post('/send-reimbursement', upload.single('receipt'), async (req, res) => {
 
 app.post('/send-leave', async (req, res) => {
     const { fullName, email, startDate, endDate, startTime, endTime, reason } = req.body;
-    const adminEmail = process.env.EMAIL_ADMIN_MNET || 'thuraichamyvithushan19@gmail.com';
+    const adminEmail = process.env.EMAIL_ADMIN_MNET || 'accounts@mototrekkin.com.au';
 
     const mailOptions = {
         from: `"Mototrekkin Leave System" <${process.env.EMAIL_USER}>`,
@@ -269,7 +269,7 @@ app.post('/send-safety-report', upload.array('attachments', 5), async (req, res)
         severity, isInjured, reportedBefore, immediateAction
     } = req.body;
 
-    const safetyEmail = process.env.EMAIL_ADMIN_MNET || 'thuraichamyvithushan19@gmail.com';
+    const safetyEmail = process.env.EMAIL_ADMIN_MNET || 'accounts@mototrekkin.com.au';
 
     const htmlContent = generateSafetyReportHtml(req.body);
 

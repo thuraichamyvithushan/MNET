@@ -13,7 +13,7 @@ import MagneTech from './components/MageTech';
 
 import NewsPage from './components/NewsPage';
 import PrivateRoute from './PrivateRoute';
-import { auth } from './firebase'; // Only need auth now
+import { auth } from './firebase'; 
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
 import DealerLocate from './components/DealerLocate';
@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthLoaded(true); // Just wait for Firebase to load
+      setIsAuthLoaded(true); 
     });
 
     return () => unsubscribe();
@@ -55,26 +55,21 @@ function App() {
         <HashRouter>
           <ScrollToTop />
           <Routes>
-            {/* Public Route: Login Page */}
+           
             <Route path="/" element={<SignInSignUpForm />} />
-
-            {/* All authenticated users go straight to AdminPage */}
             <Route
               path="/*"
               element={
                 <PrivateRoute>
                   <Navbar />
                   <Routes>
-                    {/* Main dashboard after login */}
                     <Route index element={<MainPage />} />
                     <Route path="home" element={<MainPage />} />
 
-                    {/* Admin Panel - Role protected inside component */}
                     <Route path="admin-panel" element={<AdminPanel />} />
                     <Route path="user-panel" element={<UserPanel />} />
                     <Route path="leave-application" element={<LeaveApplication />} />
 
-                    {/* All other pages (still accessible) */}
                     <Route path="company-dashboard" element={<CompanyDashboard />} />
                     <Route path="calendar" element={<CalendarPage />} />
                     <Route path="business" element={<BusinessSub />} />
