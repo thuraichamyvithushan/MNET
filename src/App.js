@@ -32,6 +32,7 @@ import LeaveApplication from './components/LeaveApplication';
 import CalendarPage from './components/CalendarPage';
 import { AuthProvider } from './context/AuthContext';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const [isAuthLoaded, setIsAuthLoaded] = useState(false);
@@ -52,6 +53,7 @@ function App() {
     <AuthProvider>
       <div className="App">
         <HashRouter>
+          <ScrollToTop />
           <Routes>
             {/* Public Route: Login Page */}
             <Route path="/" element={<SignInSignUpForm />} />
