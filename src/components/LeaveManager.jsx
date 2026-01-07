@@ -152,14 +152,17 @@ const LeaveManager = () => {
         fontWeight: "bold",
         textTransform: "uppercase",
         fontSize: "0.9rem",
-        borderBottom: "2px solid #f59e0b"
+        borderBottom: "2px solid #f59e0b",
+        minWidth: "150px",
+        whiteSpace: "nowrap"
     };
 
     const tdStyle = {
         padding: "15px",
         borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         color: "#cbd5e0",
-        verticalAlign: "middle"
+        verticalAlign: "middle",
+        minWidth: "150px"
     };
 
     const statusBadgeStyle = (status) => {
@@ -256,21 +259,21 @@ const LeaveManager = () => {
                     <table style={tableStyle}>
                         <thead>
                             <tr>
-                                <th style={thStyle}>Employee</th>
-                                <th style={thStyle}>Date & Time</th>
-                                <th style={thStyle}>Reason</th>
-                                <th style={thStyle}>Status</th>
-                                <th style={{ ...thStyle, textAlign: "right" }}>Actions</th>
+                                <th style={{ ...thStyle, minWidth: "180px" }}>Employee</th>
+                                <th style={{ ...thStyle, minWidth: "200px" }}>Date & Time</th>
+                                <th style={{ ...thStyle, minWidth: "250px" }}>Reason</th>
+                                <th style={{ ...thStyle, minWidth: "120px" }}>Status</th>
+                                <th style={{ ...thStyle, textAlign: "right", minWidth: "200px" }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredLeaves.map(leave => (
                                 <tr key={leave.id} style={{ transition: "background 0.2s" }}>
-                                    <td style={tdStyle}>
+                                    <td style={{ ...tdStyle, minWidth: "180px" }}>
                                         <div style={{ fontWeight: "bold", color: "#fff" }}>{leave.fullName || "Unnamed"}</div>
                                         <div style={{ fontSize: "0.8rem", color: "#888" }}>{leave.email}</div>
                                     </td>
-                                    <td style={tdStyle}>
+                                    <td style={{ ...tdStyle, minWidth: "200px" }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <FontAwesomeIcon icon={faCalendarDay} style={{ color: '#f59e0b' }} />
                                             {leave.startDate} to {leave.endDate}
@@ -280,15 +283,15 @@ const LeaveManager = () => {
                                             {leave.startTime} - {leave.endTime}
                                         </div>
                                     </td>
-                                    <td style={{ ...tdStyle, maxWidth: '250px' }}>
+                                    <td style={{ ...tdStyle, minWidth: '250px', maxWidth: '300px' }}>
                                         {leave.reason}
                                     </td>
-                                    <td style={tdStyle}>
+                                    <td style={{ ...tdStyle, minWidth: "120px" }}>
                                         <span style={statusBadgeStyle(leave.status)}>
                                             {leave.status}
                                         </span>
                                     </td>
-                                    <td style={{ ...tdStyle, textAlign: "right" }}>
+                                    <td style={{ ...tdStyle, textAlign: "right", minWidth: "200px" }}>
                                         {/* Approve Button */}
                                         {leave.status !== 'Approved' && (
                                             <button
@@ -297,6 +300,17 @@ const LeaveManager = () => {
                                                 title="Approve Leave"
                                             >
                                                 <FontAwesomeIcon icon={faCheck} /> <span className="btn-text">Approve</span>
+                                            </button>
+                                        )}
+
+                                        {/* Reject Button */}
+                                        {leave.status !== 'Rejected' && (
+                                            <button
+                                                style={btnStyle('reject')}
+                                                onClick={() => rejectLeave(leave)}
+                                                title="Reject Leave"
+                                            >
+                                                <FontAwesomeIcon icon={faTimes} /> <span className="btn-text">Reject</span>
                                             </button>
                                         )}
 

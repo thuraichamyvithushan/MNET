@@ -128,14 +128,17 @@ const UserManager = () => {
         fontWeight: "bold",
         textTransform: "uppercase",
         fontSize: "0.9rem",
-        borderBottom: "2px solid #f59e0b"
+        borderBottom: "2px solid #f59e0b",
+        minWidth: "150px",
+        whiteSpace: "nowrap"
     };
 
     const tdStyle = {
         padding: "15px",
         borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         color: "#cbd5e0",
-        verticalAlign: "middle"
+        verticalAlign: "middle",
+        minWidth: "150px"
     };
 
     const roleBadgeStyle = (role) => ({
@@ -196,17 +199,17 @@ const UserManager = () => {
                     <table style={tableStyle}>
                         <thead>
                             <tr>
-                                <th style={thStyle}>User</th>
-                                <th style={thStyle}>Role</th>
-                                <th style={thStyle}>Email</th>
-                                <th style={thStyle}>Joined Date</th>
-                                <th style={{ ...thStyle, textAlign: "right" }}>Actions</th>
+                                <th style={{ ...thStyle, minWidth: "180px" }}>User</th>
+                                <th style={{ ...thStyle, minWidth: "120px" }}>Role</th>
+                                <th style={{ ...thStyle, minWidth: "200px" }}>Email</th>
+                                <th style={{ ...thStyle, minWidth: "140px" }}>Joined Date</th>
+                                <th style={{ ...thStyle, textAlign: "right", minWidth: "200px" }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredUsers.map(user => (
                                 <tr key={user.id} className="user-row-hover" style={{ transition: "background 0.2s" }}>
-                                    <td style={tdStyle}>
+                                    <td style={{ ...tdStyle, minWidth: "180px" }}>
                                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                                             <div style={{
                                                 width: "35px", height: "35px", borderRadius: "50%",
@@ -218,18 +221,18 @@ const UserManager = () => {
                                             <span style={{ fontWeight: "bold", color: "#fff" }}>{user.name || "Unnamed"}</span>
                                         </div>
                                     </td>
-                                    <td style={tdStyle}>
+                                    <td style={{ ...tdStyle, minWidth: "120px" }}>
                                         <span style={roleBadgeStyle(user.role)}>
                                             {user.role || "USER"}
                                         </span>
                                     </td>
-                                    <td style={tdStyle}>{user.email}</td>
-                                    <td style={tdStyle}>
+                                    <td style={{ ...tdStyle, minWidth: "200px" }}>{user.email}</td>
+                                    <td style={{ ...tdStyle, minWidth: "140px" }}>
                                         {user.createdAt && user.createdAt.toDate
                                             ? user.createdAt.toDate().toLocaleDateString()
                                             : "N/A"}
                                     </td>
-                                    <td style={{ ...tdStyle, textAlign: "right" }}>
+                                    <td style={{ ...tdStyle, textAlign: "right", minWidth: "200px" }}>
                                         {/* Make Admin Button */}
                                         {user.role !== 'admin' && (
                                             <button

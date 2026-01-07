@@ -213,6 +213,53 @@ app.post('/send-leave-approval', async (req, res) => {
     }
 });
 
+app.post('/send-leave-rejection', async (req, res) => {
+    const { email, fullName, startDate, endDate, reason } = req.body;
+
+    const mailOptions = {
+        from: `"Mototrekkin Leave System" <${process.env.EMAIL_USER}>`,
+        to: email, // Send to the user
+        subject: `Leave Request Rejected - ${fullName}`,
+        text: `
+      Dear ${fullName},
+
+      We regret to inform you that your leave request has been REJECTED.
+
+      Details:
+      From: ${startDate}
+      To:   ${endDate}
+      Reason: ${reason || 'Not specified'}
+
+      Please contact your manager for more information.
+      
+      Best regards,
+      Mototrekkin Admin
+    `,
+        html: `
+      <h2>Leave Request Rejected</h2>
+      <p>Dear <strong>${fullName}</strong>,</p>
+      <p>We regret to inform you that your leave request has been <strong style="color: red;">REJECTED</strong>.</p>
+      <hr/>
+      <p><strong>From:</strong> ${startDate}</p>
+      <p><strong>To:</strong> ${endDate}</p>
+      <p><strong>Reason:</strong> ${reason || 'Not specified'}</p>
+      <hr/>
+      <p>Please contact your manager for more information.</p>
+      <br/>
+      <p>Best regards,<br/>Mototrekkin Admin</p>
+    `
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Rejection email sent: ' + info.response);
+        res.status(200).json({ message: 'Rejection email sent successfully!' });
+    } catch (error) {
+        console.error('Error sending rejection email:', error);
+        res.status(500).json({ message: 'Failed to send rejection email', error: error.toString() });
+    }
+});
+
 
 
 app.post('/send-safety-report', upload.array('attachments', 5), async (req, res) => {
