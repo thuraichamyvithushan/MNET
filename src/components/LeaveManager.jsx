@@ -213,10 +213,10 @@ const LeaveManager = () => {
             fontWeight: "bold",
             fontSize: "0.85rem",
             marginLeft: "15px",
-            marginBottom:"10px",
             transition: "all 0.2s",
             background: bgColor,
-            color: textColor
+            color: textColor,
+            marginBottom:"10px"
         };
     };
 
